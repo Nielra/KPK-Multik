@@ -680,10 +680,8 @@ void BackgroundTitryEnd()
         txSetColor (TX_BLACK);
         txSetFillColor (TX_BLACK);
         txSelectFont ("Arial", 50, 0, FW_BOLD);
-        txTextOut (400, 300 - t * 10, "Добро пожаловать в Уфу");
+        txTextOut (400, 300 - t * 10, "Добро пожаловать в Уфу!");
         txTextOut (200, 500 - t * 10, "Проект выполнила");
-        //txTextOut (200, 550 - t * 10, "учитель информатики");
-        //txTextOut (200, 600 - t * 10, "МАОУ Татарская гимназия №84");
         txTextOut (200, 550 - t * 10, "Нафикова Эльвира Рафисовна");
         txTextOut (500, 650 - t * 10, "г.Уфа, 2021");
 
