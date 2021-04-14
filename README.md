@@ -1,5 +1,6 @@
 # KPK-Multik
-### Мультфильм "Долгожданная встреча" ![](https://github.com/Nielra/KPK-Multik/blob/main/Название.gif?raw=true)
+### Мультфильм "Долгожданная встреча"
+![](https://github.com/Nielra/KPK-Multik/blob/main/Название.gif?raw=true)
 Данный проект состоит из трех частей: 
 
  * сцена прилета ![](https://github.com/Nielra/KPK-Multik/blob/main/Arrival.gif?raw=true)
