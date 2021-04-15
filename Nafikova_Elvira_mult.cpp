@@ -1,9 +1,9 @@
 //{=============================================================================
-// Мультфильм "Долгожданная встреча"
-// Зачетная работа
-// КПК учителей информатики
-// Нафикова Эльвира Рафисовна
-// г. Уфа
+// ГЊГіГ«ГјГІГґГЁГ«ГјГ¬ "Г„Г®Г«ГЈГ®Г¦Г¤Г Г­Г­Г Гї ГўГ±ГІГ°ГҐГ·Г "
+// Г‡Г Г·ГҐГІГ­Г Гї Г°Г ГЎГ®ГІГ 
+// ГЉГЏГЉ ГіГ·ГЁГІГҐГ«ГҐГ© ГЁГ­ГґГ®Г°Г¬Г ГІГЁГЄГЁ
+// ГЌГ ГґГЁГЄГ®ГўГ  ГќГ«ГјГўГЁГ°Г  ГђГ ГґГЁГ±Г®ГўГ­Г 
+// ГЈ. Г“ГґГ 
 // 2021
 //}=============================================================================
 
@@ -197,7 +197,7 @@ void BackgroundMost()
         txSetColor (TX_WHITE);
         txSetFillColor (TX_WHITE);
         txSelectFont ("Arial", 20, 0, FW_BOLD);
-        txTextOut (300, 600, "р. Агидель");
+        txTextOut (300, 600, "Г°. ГЂГЈГЁГ¤ГҐГ«Гј");
 
         DrawMostRear();
 
@@ -357,7 +357,7 @@ void BackgroundMeet()
                   2, 0, 1, 0, 1, 2, TX_PINK);
         DrawGirl (500 + t, 330 + t, (10 + t/20) * 0.08 , pow (-1, (t/5) % 2),
                   2, 0, 1, 0, 1, 3, TX_YELLOW);
-        DrawGirl (800,     450    , 1,                   0,
+        DrawGirl (800,     450,     1,                   0,
                   0, 0, 0, 0, 0, 0, RGB (0, 255, 255));
 
         DrawHaus (130, 30,  9, RGB (128,  0, 128));
@@ -455,7 +455,7 @@ void DrawAirport (int x, int y, double sizeAirport)
     txSetColor (TX_WHITE);
     txSetFillColor (TX_WHITE);
     txSelectFont ("Arial", 20, 0, FW_BOLD);
-    txTextOut (x - 22 * sizeAirport, y - 14 * sizeAirport, "УФА аэропорт");
+    txTextOut (x - 22 * sizeAirport, y - 14 * sizeAirport, "Г“Г”ГЂ Г ГЅГ°Г®ГЇГ®Г°ГІ");
     txTextOut (x + 12 * sizeAirport, y - 14 * sizeAirport, "airport UFA" );
     txSetColor (RGB (105, 105, 105));
     txSetFillColor (RGB (105, 105, 105));
@@ -585,7 +585,7 @@ void DrawMonument (int x, int y, double sizeMonument)
     txSetColor (TX_WHITE);
     txSetFillColor (TX_WHITE);
     txSelectFont ("Arial", 20, 0, FW_BOLD);
-    txTextOut ((x - 9) * sizeMonument, (y + 32) * sizeMonument, "Монумент Дружбы");
+    txTextOut ((x - 9) * sizeMonument, (y + 32) * sizeMonument, "ГЊГ®Г­ГіГ¬ГҐГ­ГІ Г„Г°ГіГ¦ГЎГ»");
     }
 
 //-----------------------------------------------------------------------------
@@ -631,7 +631,7 @@ void DrawHaus (int x, int y, double sizeHaus, COLORREF HausColor)
         }
     txSetColor (TX_BROWN);
     txSetFillColor (TX_BROWN);
-    txRectangle ((x + 7) * sizeHaus, (y + 15) * sizeHaus, (x +  9) * sizeHaus, (y + 19) * sizeHaus);
+    txRectangle ((x + 7) * sizeHaus, (y + 15) * sizeHaus, (x + 9) * sizeHaus, (y + 19) * sizeHaus);
     }
 
 //=============================================================================
@@ -652,7 +652,7 @@ void BackgroundTitryBegin()
         txSetColor (TX_GRAY);
         txSetFillColor (TX_GRAY);
         txSelectFont ("Arial", 100, 0, FW_BOLD);
-        txTextOut (500 - t * 10, 300, "Долгожданная встреча");
+        txTextOut (500 - t * 10, 300, "Г„Г®Г«ГЈГ®Г¦Г¤Г Г­Г­Г Гї ГўГ±ГІГ°ГҐГ·Г ");
 
         t ++ ;
 
@@ -680,10 +680,10 @@ void BackgroundTitryEnd()
         txSetColor (TX_BLACK);
         txSetFillColor (TX_BLACK);
         txSelectFont ("Arial", 50, 0, FW_BOLD);
-        txTextOut (400, 300 - t * 10, "Добро пожаловать в Уфу!");
-        txTextOut (200, 500 - t * 10, "Проект выполнила");
-        txTextOut (200, 550 - t * 10, "Нафикова Эльвира Рафисовна");
-        txTextOut (500, 650 - t * 10, "г.Уфа, 2021");
+        txTextOut (400, 300 - t * 10, "Г„Г®ГЎГ°Г® ГЇГ®Г¦Г Г«Г®ГўГ ГІГј Гў Г“ГґГі!");
+        txTextOut (200, 500 - t * 10, "ГЏГ°Г®ГҐГЄГІ ГўГ»ГЇГ®Г«Г­ГЁГ«Г ");
+        txTextOut (200, 550 - t * 10, "ГЌГ ГґГЁГЄГ®ГўГ  ГќГ«ГјГўГЁГ°Г  ГђГ ГґГЁГ±Г®ГўГ­Г ");
+        txTextOut (500, 650 - t * 10, "ГЈ.Г“ГґГ , 2021");
 
         t ++ ;
 
