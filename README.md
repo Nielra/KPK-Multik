@@ -17,9 +17,9 @@
     {
     txSetColor (TX_WHITE);
     txSetFillColor (TX_WHITE);
-    txEllipse (ROUND( x           * sizeCloud), ROUND((y + 20) * sizeCloud), ROUND((x + 40) * sizeCloud),
+    txEllipse (ROUND( x       * sizeCloud), ROUND((y + 20) * sizeCloud), ROUND((x + 40) * sizeCloud),
                      ROUND((y + 40) * sizeCloud));
-    txEllipse (ROUND((x + 20) * sizeCloud), ROUND( y           * sizeCloud), ROUND((x + 80) * sizeCloud),
+    txEllipse (ROUND((x + 20) * sizeCloud), ROUND( y       * sizeCloud), ROUND((x + 80) * sizeCloud),
                      ROUND((y + 40) * sizeCloud));
     txEllipse (ROUND((x + 20) * sizeCloud), ROUND((y + 30) * sizeCloud), ROUND((x + 60) * sizeCloud),
                      ROUND((y + 50) * sizeCloud));
