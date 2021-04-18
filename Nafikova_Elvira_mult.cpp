@@ -1,9 +1,9 @@
 //{=============================================================================
-// Мультфильм "Долгожданная встреча"
-// Зачетная работа
-// КПК учителей информатики
-// Нафикова Эльвира Рафисовна
-// г. Уфа
+// A cartoon "Long-awaited meeting"
+// Final test
+// Advanced training courses of IT teachers
+// Nafikova Elvira
+// Ufa
 // 2021
 //}=============================================================================
 
@@ -15,7 +15,7 @@
 void DrawAirplan  (int x, int y, double size);
 void DrawCloud    (int x, int y, double sizeCloud);
 void DrawAirport  (int x, int y, double sizeAirport);
-void DrawBus      (int x, int y, double sizeBus);
+void DrawBus      (int x, int y, double sizeBus, int RLBus, COLORREF BusColor);
 void DrawGirl     (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int Face,
                    int moveHandR, int moveHandL, int smile, COLORREF BodyColor);
 void DrawHaus     (int x, int y, double sizeHaus, COLORREF HausColor);
@@ -80,7 +80,7 @@ void BackgroundArrived()
 
         DrawAirport (500, 250, 10);
 
-        DrawBus (1000, 200, 10);
+        DrawBus (1000, 200, 10, 1, TX_YELLOW);
 
         DrawAirplan (t * 2, t, t * 0.025);
 
@@ -115,7 +115,7 @@ void BackgroundPassengerInBus()
 
         DrawAirport (500, 250, 10);
 
-        DrawBus (1000, 200, 10);
+        DrawBus (1000, 200, 10, 1, TX_YELLOW);
 
         DrawGirl (900 + t, 330 - t, (10 - t/20) * 0.09 , pow (-1, (t/5) % 2),
                   0, 0, 0, 0, 1, 1, TX_PINK);
@@ -155,7 +155,7 @@ void BackgroundGoBus()
 
         DrawAirport (500, 250, 10);
 
-        DrawBus (1000 + t * 5, 200, 10);
+        DrawBus (1000 + t * 5, 200, 10, 1, TX_YELLOW);
 
         DrawAirplan (200, 100, 2.5);
 
@@ -197,7 +197,7 @@ void BackgroundMost()
         txSetColor (TX_WHITE);
         txSetFillColor (TX_WHITE);
         txSelectFont ("Arial", 20, 0, FW_BOLD);
-        txTextOut (300, 600, "р. Агидель");
+        txTextOut (300, 600, "Agidel river");
 
         DrawMostRear();
 
@@ -210,11 +210,13 @@ void BackgroundMost()
         DrawMonument (80, 1, 8);
 
         DrawHaus (230, 10,  5, RGB ( 47, 79,  79));
-        DrawHaus (100, 10, 10, TX_ORANGE);
+        DrawHaus (100, 10, 10, TX_ORANGE         );
         DrawHaus (120,  5,  7, RGB (128,  0, 128));
         DrawHaus (130, 10,  9, RGB (128,  0, 128));
 
-        DrawBus (100 + t * 15, 250, 20);
+        DrawBus ( 600 - t * 20, 170, 16, -1, RGB (250, 128, 114));
+        DrawBus (1300 - t * 13, 170, 16, -1, RGB (189, 183, 107));
+        DrawBus ( 100 + t * 15, 250, 20,  1, TX_YELLOW          );
 
         DrawMostFront();
 
@@ -257,11 +259,13 @@ void BackgroundStop()
         DrawHaus ( 70,  5,  7, RGB (128,  0, 128));
         DrawHaus ( 30, 11,  6, TX_ORANGE);
 
-        DrawBus (100 + t * 15, 250, 10);
+        DrawBus (1100 - t * 20, 150, 10, -1, RGB (250, 128, 114));
+        DrawBus (-100 + t * 20, 200, 10,  1, RGB (139,   0, 139));
+        DrawBus ( 100 + t * 15, 260, 10,  1, TX_YELLOW          );
 
         DrawHaus (130, 30,  9, RGB (128,  0, 128));
         DrawHaus ( 20, 35, 10, RGB ( 47, 79,  79));
-        DrawHaus ( 70, 30, 12, TX_ORANGE);
+        DrawHaus ( 70, 30, 12, TX_ORANGE         );
 
         t ++ ;
 
@@ -302,7 +306,9 @@ void BackgroundOutBas()
         DrawHaus ( 70,  5,  7, RGB (128,  0, 128));
         DrawHaus ( 30, 11,  6, TX_ORANGE);
 
-        DrawBus (550, 250, 10);
+        DrawBus (500 - t * 20, 150, 10, -1, RGB (250, 128, 114));
+        DrawBus (500 + t * 20, 200, 10,  1, RGB (139,   0, 139));
+        DrawBus (550,          250, 10,  1, TX_YELLOW          );
 
         DrawGirl (570, 330, 0.7, 0, 2, 0, 1, 0,                 1, 2, TX_PINK          );
         DrawGirl (500, 330, 0.8, 0, 2, 0, 1, 0,                 1, 3, TX_YELLOW        );
@@ -310,7 +316,7 @@ void BackgroundOutBas()
 
         DrawHaus (130, 30,  9, RGB (128,  0, 128));
         DrawHaus ( 20, 35, 10, RGB ( 47, 79,  79));
-        DrawHaus ( 70, 30, 13, TX_ORANGE);
+        DrawHaus ( 70, 30, 13, TX_ORANGE         );
 
         t ++ ;
 
@@ -351,7 +357,9 @@ void BackgroundMeet()
         DrawHaus ( 70,  5,  7, RGB (128,  0, 128));
         DrawHaus ( 30, 11,  6, TX_ORANGE);
 
-        DrawBus (550 + t * 15, 250, 10);
+        DrawBus (100 - t * 20, 150, 10, -1, RGB (250, 128, 114));
+        DrawBus (900 + t * 20, 200, 10,  1, RGB (139,   0, 139));
+        DrawBus (550 + t * 15, 250, 10,  1, TX_YELLOW          );
 
         DrawGirl (570 + t, 330 + t, (10 + t/20) * 0.07 , pow (-1, (t/5) % 2),
                   2, 0, 1, 0, 1, 2, TX_PINK);
@@ -362,7 +370,7 @@ void BackgroundMeet()
 
         DrawHaus (130, 30,  9, RGB (128,  0, 128));
         DrawHaus ( 20, 35, 10, RGB ( 47, 79,  79));
-        DrawHaus ( 70, 30, 13, TX_ORANGE);
+        DrawHaus ( 70, 30, 13, TX_ORANGE         );
 
         t ++ ;
 
@@ -474,29 +482,29 @@ void DrawAirport (int x, int y, double sizeAirport)
 
 //-----------------------------------------------------------------------------
 
-void DrawBus (int x, int y, double sizeBus)
+void DrawBus (int x, int y, double sizeBus, int RLBus, COLORREF BusColor)
     {
     txSetColor (TX_ORANGE);
-    txSetFillColor (TX_YELLOW);
+    txSetFillColor (BusColor);
     txRectangle (x - 10 * sizeBus, y,               x + 10 * sizeBus, y + 10 * sizeBus);
     txSetFillColor (TX_ORANGE);
-    txCircle (x + 9 * sizeBus, y + 7 * sizeBus, 1 * sizeBus);
+    txCircle (x + 9 * sizeBus * RLBus, y + 7 * sizeBus, 1 * sizeBus);
     txSetColor (TX_LIGHTGRAY);
     txSetFillColor (TX_LIGHTGRAY);
-    txRectangle (x -  9 * sizeBus, y + 2 * sizeBus, x + 10 * sizeBus, y +  6 * sizeBus);
+    txRectangle (x -  9 * sizeBus * RLBus, y + 2 * sizeBus, x + 10 * sizeBus * RLBus, y +  6 * sizeBus);
     txSetColor (RGB (128, 128, 128), 3);
-    txLine (x - 9 * sizeBus, y +  2 * sizeBus, x -  9 * sizeBus, y +  6 * sizeBus);
-    txLine (x - 6 * sizeBus, y +  2 * sizeBus, x -  6 * sizeBus, y +  6 * sizeBus);
-    txLine (x - 2 * sizeBus, y +  2 * sizeBus, x -  2 * sizeBus, y + 10 * sizeBus);
-    txLine (x + 2 * sizeBus, y +  2 * sizeBus, x +  2 * sizeBus, y + 10 * sizeBus);
-    txLine (x + 6 * sizeBus, y +  2 * sizeBus, x +  6 * sizeBus, y +  6 * sizeBus);
-    txLine (x - 9 * sizeBus, y +  2 * sizeBus, x + 10 * sizeBus, y +  2 * sizeBus);
-    txLine (x - 9 * sizeBus, y +  6 * sizeBus, x + 10 * sizeBus, y +  6 * sizeBus);
-    txLine (x - 2 * sizeBus, y + 10 * sizeBus, x +  2 * sizeBus, y + 10 * sizeBus);
+    txLine (x - 9 * sizeBus * RLBus, y +  2 * sizeBus, x -  9 * sizeBus * RLBus, y +  6 * sizeBus);
+    txLine (x - 6 * sizeBus * RLBus, y +  2 * sizeBus, x -  6 * sizeBus * RLBus, y +  6 * sizeBus);
+    txLine (x - 2 * sizeBus * RLBus, y +  2 * sizeBus, x -  2 * sizeBus * RLBus, y + 10 * sizeBus);
+    txLine (x + 2 * sizeBus * RLBus, y +  2 * sizeBus, x +  2 * sizeBus * RLBus, y + 10 * sizeBus);
+    txLine (x + 6 * sizeBus * RLBus, y +  2 * sizeBus, x +  6 * sizeBus * RLBus, y +  6 * sizeBus);
+    txLine (x - 9 * sizeBus * RLBus, y +  2 * sizeBus, x + 10 * sizeBus * RLBus, y +  2 * sizeBus);
+    txLine (x - 9 * sizeBus * RLBus, y +  6 * sizeBus, x + 10 * sizeBus * RLBus, y +  6 * sizeBus);
+    txLine (x - 2 * sizeBus * RLBus, y + 10 * sizeBus, x +  2 * sizeBus * RLBus, y + 10 * sizeBus);
     txSetColor (TX_BLACK);
     txSetFillColor (TX_BLACK);
-    txCircle (x - 6 * sizeBus, y + 10 * sizeBus, 2 * sizeBus);
-    txCircle (x + 6 * sizeBus, y + 10 * sizeBus, 2 * sizeBus);
+    txCircle (x - 6 * sizeBus * RLBus, y + 10 * sizeBus, 2 * sizeBus);
+    txCircle (x + 6 * sizeBus * RLBus, y + 10 * sizeBus, 2 * sizeBus);
     }
 
 //-----------------------------------------------------------------------------
@@ -585,7 +593,7 @@ void DrawMonument (int x, int y, double sizeMonument)
     txSetColor (TX_WHITE);
     txSetFillColor (TX_WHITE);
     txSelectFont ("Arial", 20, 0, FW_BOLD);
-    txTextOut ((x - 9) * sizeMonument, (y + 32) * sizeMonument, "Монумент Дружбы");
+    txTextOut ((x - 10) * sizeMonument, (y + 32) * sizeMonument, "Monument of friendship");
     }
 
 //-----------------------------------------------------------------------------
@@ -652,7 +660,7 @@ void BackgroundTitryBegin()
         txSetColor (TX_GRAY);
         txSetFillColor (TX_GRAY);
         txSelectFont ("Arial", 100, 0, FW_BOLD);
-        txTextOut (500 - t * 10, 300, "Долгожданная встреча");
+        txTextOut (500 - t * 10, 300, "Long-awaited meeting");
 
         t ++ ;
 
@@ -680,10 +688,10 @@ void BackgroundTitryEnd()
         txSetColor (TX_BLACK);
         txSetFillColor (TX_BLACK);
         txSelectFont ("Arial", 50, 0, FW_BOLD);
-        txTextOut (400, 300 - t * 10, "Добро пожаловать в Уфу!");
-        txTextOut (200, 500 - t * 10, "Проект выполнила");
-        txTextOut (200, 550 - t * 10, "Нафикова Эльвира Рафисовна");
-        txTextOut (500, 650 - t * 10, "г.Уфа, 2021");
+        txTextOut (400, 300 - t * 10, "Welcome to Ufa!");
+        txTextOut (200, 500 - t * 10, "Project completed");
+        txTextOut (200, 550 - t * 10, "by Nafikova Elvira");
+        txTextOut (500, 650 - t * 10, "Ufa, 2021");
 
         t ++ ;
 
