@@ -1,8 +1,18 @@
+//{=============================================================================
+//!@brief    Первая библиотека
+//!
+//!@author   Эльвира Нафикова
+//!
+//!@date     2021
+//!@mainpage
+//!          Функции:
+//}=============================================================================
+
 #include <cmath>
 #include "TXLib.h"
 
 void DrawSun      (int x, int y, double size);
-void DrawElka     (int x, int y, int crown1, int crown2, int crown3, int widthTrunk);
+void DrawElka     (int x, int y, int crown1, int crown2, int crown3, int Kachanie, int widthTrunk);
 void DrawHaus     (int x, int y, double sizeX, double sizeY,
                    int shiftKrisha, int heightKrisha, int widthWindow, int heightWindow,
                    COLORREF wallColor, COLORREF krishaColor, COLORREF windowColor);
@@ -34,15 +44,15 @@ void DrawSun (int x, int y, double size)
 
 //-----------------------------------------------------------------------------
 
-void DrawElka (int x, int y, int crown1, int crown2, int crown3, int widthTrunk)
+void DrawElka (int x, int y, int crown1, int crown2, int crown3, int Kachanie, int widthTrunk)
     {
     txSetColor (TX_GREEN);
     txSetFillColor (TX_GREEN);
-    POINT Treug1[3] = {{x - 17 - crown1/2, y + 36}, {x, y},      {x + 17 + crown1/2, y + 36}};
+    POINT Treug1[3] = {{x - 17 - crown1/2, y + 36}, {x - Kachanie,       y     }, {x + 17 + crown1/2, y + 36}};
     txPolygon (Treug1, 3);
-    POINT Treug2[3] = {{x - 25 - crown2/2, y + 60}, {x, y + 36}, {x + 25 + crown2/2, y + 60}};
+    POINT Treug2[3] = {{x - 25 - crown2/2, y + 60}, {x - Kachanie * 0.5, y + 36}, {x + 25 + crown2/2, y + 60}};
     txPolygon (Treug2, 3);
-    POINT Treug3[3] = {{x - 30 - crown3/2, y + 90}, {x, y + 60}, {x + 30 + crown3/2, y + 90}};
+    POINT Treug3[3] = {{x - 30 - crown3/2, y + 90}, {x - Kachanie * 0.3, y + 60}, {x + 30 + crown3/2, y + 90}};
     txPolygon (Treug3, 3);
     txSetColor (TX_BROWN);
     txSetFillColor (TX_BROWN);
@@ -185,8 +195,6 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
     txRectangle (ROUND ((x - 105) * size), ROUND ((y + 16) * size),
                  ROUND ((x -  10) * size), ROUND ((y + 56) * size));
 
-    txCircle (ROUND (x * size), ROUND (y * size), ROUND (23 * size));
-
     POINT Ear1[3] = {{ROUND ((x - 13) * size), ROUND ((y - 22) * size)},
                      {ROUND ((x -  4) * size), ROUND ((y - 38) * size)},
                      {ROUND ((x +  5) * size), ROUND ((y - 22) * size)}};
@@ -195,6 +203,8 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
                      {ROUND ((x + 10) * size), ROUND ((y - 35) * size)},
                      {ROUND ((x + 15) * size), ROUND ((y - 20) * size)}};
     txPolygon (Ear2, 3);
+
+    txCircle (ROUND (x * size), ROUND (y * size), ROUND (23 * size));
 
     txSetColor (TX_BLACK);
     txSetFillColor (TX_BLACK);
