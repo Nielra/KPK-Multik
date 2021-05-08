@@ -4,27 +4,40 @@
 //!@author   Эльвира Нафикова
 //!
 //!@date     2021
+//!
 //!@mainpage
 //!          Функции:
+//!
+//!         - @ref DrawSun()
+//!         - @ref DrawCloud()
+//!         - @ref DrawElka()
+//!         - @ref DrawHaus()
+//!         - @ref DrawHausCity()
+//!         - @ref DrawCat()
+//!         - @ref DrawChick()
+//!         - @ref DrawGirl()
+//!         - @ref DrawAirplan()
+//!         - @ref DrawBus()
 //}=============================================================================
 
 #include <cmath>
 #include "TXLib.h"
 
 void DrawSun      (int x, int y, double size);
-void DrawElka     (int x, int y, int crown1, int crown2, int crown3, int Kachanie, int widthTrunk);
+void DrawElka     (int x, int y, double size, int crown1, int crown2, int crown3,
+                   int kachanie, int widthTrunk);
 void DrawHaus     (int x, int y, double sizeX, double sizeY,
                    int shiftKrisha, int heightKrisha, int widthWindow, int heightWindow,
                    COLORREF wallColor, COLORREF krishaColor, COLORREF windowColor);
 void DrawCat      (int x, int y, double size, int lengthTail, int heightTail,
-                   int pawsL, int pawsR, COLORREF catColor);
+                   int pawsL, int pawsR, int us1, int us2, int us3, COLORREF catColor);
 void DrawChick    (int x, int y, int moveWing, int lengthStep);
 void DrawAirplan  (int x, int y, double size);
 void DrawCloud    (int x, int y, double sizeCloud);
 void DrawAirport  (int x, int y, double sizeAirport);
 void DrawBus      (int x, int y, double sizeBus, int RLBus, COLORREF BusColor);
 void DrawGirl     (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int face,
-                   int moveHandR, int moveHandL, int smile, COLORREF BodyColor);
+                   int moveHandR, int moveHandL, int smile, COLORREF bodyColor);
 void DrawHausCity (int x, int y, double sizeHaus, COLORREF HausColor);
 void DrawRoad     (int y);
 void DrawMonument (int x, int y, double sizeMonument);
@@ -42,27 +55,56 @@ void DrawSun (int x, int y, double size)
     txLine (x - 50*size, y + 60*size, x + 50*size, y - 40*size);
     }
 
-//-----------------------------------------------------------------------------
+//{=============================================================================
+//! Рисует ёлочку
+//!
+//! Рисует зеленую красивую ёлочку
+//!
+//! @param x          x - координата верхушки ёлочки
+//! @param y          y - координата верхушки ёлочки
+//! @param size       Размер ёлочки
+//! @param crown1     Размер верхней кроны ёлочки
+//! @param crown2     Размер средней кроны ёлочки
+//! @param crown3     Размер нижней кроны ёлочки
+//! @param kachanie   Ёлочка может покачиваться
+//! @param widthTrunk Ширина ствола ёлочки
+//!
+//! @par              Пример использования:
+//! @code
+//!         DrawElka (100, 100, 0.7, 10, 20, 30, 0, 20);
+//! @endcode
+//}-----------------------------------------------------------------------------
 
-void DrawElka (int x, int y, int crown1, int crown2, int crown3, int Kachanie, int widthTrunk)
+void DrawElka (int x, int y, double size, int crown1, int crown2, int crown3, int kachanie, int widthTrunk)
     {
     txSetColor (TX_GREEN);
     txSetFillColor (TX_GREEN);
-    POINT Treug1[3] = {{x - 17 - crown1/2, y + 36}, {x - Kachanie,       y     }, {x + 17 + crown1/2, y + 36}};
+
+    POINT Treug1[3] = {{ROUND ((x - 17 - crown1/2) * size), ROUND ((y + 36 + kachanie/2) * size)},
+                       {ROUND ((x - kachanie) * size),      ROUND (y * size)},
+                       {ROUND ((x + 17 + crown1/2) * size), ROUND ((y + 36 - kachanie/2) * size)}};
     txPolygon (Treug1, 3);
-    POINT Treug2[3] = {{x - 25 - crown2/2, y + 60}, {x - Kachanie * 0.5, y + 36}, {x + 25 + crown2/2, y + 60}};
+
+    POINT Treug2[3] = {{ROUND ((x - 25 - crown2/2) * size), ROUND ((y + 60 + kachanie/2) * size)},
+                       {ROUND ((x - kachanie/2) * size),    ROUND ((y + 36) * size)},
+                       {ROUND ((x + 25 + crown2/2) * size), ROUND ((y + 60 - kachanie/2) * size)}};
     txPolygon (Treug2, 3);
-    POINT Treug3[3] = {{x - 30 - crown3/2, y + 90}, {x - Kachanie * 0.3, y + 60}, {x + 30 + crown3/2, y + 90}};
+
+    POINT Treug3[3] = {{ROUND ((x - 30 - crown3/2) * size), ROUND ((y + 90 + kachanie/2) * size)},
+                       {ROUND ((x - kachanie/3) * size),    ROUND ((y + 60) * size)},
+                       {ROUND ((x + 30 + crown3/2) * size), ROUND ((y + 90 - kachanie/2) * size)}};
     txPolygon (Treug3, 3);
+
     txSetColor (TX_BROWN);
     txSetFillColor (TX_BROWN);
-    txRectangle (x - widthTrunk/2, y + 90, x + widthTrunk/2, y + 115);
+    txRectangle (ROUND ((x - widthTrunk/2) * size), ROUND ((y +  90) * size),
+                 ROUND ((x + widthTrunk/2) * size), ROUND ((y + 115) * size));
     }
 
 //{=============================================================================
 //! Рисует Домик
 //!
-//! Рисует милый деревенский Домик с одним окошком
+//! Рисует милый деревенский Домик с одним окном
 //!
 //! @param x            x - координата конька Домика (самая верхушка)
 //! @param y            y - координата конька Домика (самая верхушка)
@@ -72,6 +114,9 @@ void DrawElka (int x, int y, int crown1, int crown2, int crown3, int Kachanie, i
 //! @param heightKrisha Увеличение или уменьшение высоты крыши Домика
 //! @param widthWindow  Ширина окна Домика
 //! @param heightWindow Высота окна Домика
+//! @param wallColor    Цвет стены Домика
+//! @param krishaColor  Цвет крыши Домика
+//! @param windowColor  Цвет окна Домика
 //!
 //! @par                Пример использования:
 //! @code
@@ -103,18 +148,19 @@ void DrawHaus (int x, int y, double sizeX, double sizeY,
 //{=============================================================================
 //! Рисует Девочку
 //!
-//! Рисует Девочку с бантиком
+//! Рисует Девочку с голубыми глазами и красным бантиком
 //!
 //! @param x         x - координата шеи Девочки
 //! @param y         y - координата шеи Девочки
 //! @param sizeGirl  Размер Девочки. Девочки могут быть маленькими и большими
-//! @param legs      Подъем ноги Девочки
+//! @param legs      Подъем ноги Девочки. Девочка может ходить вперед или назад
 //! @param eyeR      Радиус глаз Девочки
 //! @param crazy     У Девочки могут быть разные по величине глаза
 //! @param face      Девочка может повернуться спиной (т.е. без лица)
 //! @param moveHandR Движение правой руки Девочки
 //! @param moveHandL Движение левой руки Девочки
 //! @param smile     Улыбка Девочки
+//! @param bodyColor Цвет платья Девочки
 //!
 //! @par             Пример использования:
 //! @code
@@ -123,9 +169,9 @@ void DrawHaus (int x, int y, double sizeX, double sizeY,
 //}-----------------------------------------------------------------------------
 
 void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int face,
-               int moveHandR, int moveHandL, int smile, COLORREF BodyColor)
+               int moveHandR, int moveHandL, int smile, COLORREF bodyColor)
     {
-    txSetFillColor (BodyColor);
+    txSetFillColor (bodyColor);
     txSetColor (TX_BLACK);
     POINT Girl[3] = {{ROUND (x - 35 * sizeGirl), ROUND (y + 130 * sizeGirl)},
                      {ROUND (x -  1 * sizeGirl), ROUND (y -   1 * sizeGirl)},
@@ -146,11 +192,12 @@ void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int
     txCircle (ROUND (x - 1 * sizeGirl), ROUND (y - 25 * sizeGirl), ROUND (25 * sizeGirl));
     txCircle (ROUND (x - 1 * sizeGirl), ROUND (y - 21 * sizeGirl), ROUND ( 2 * sizeGirl) * face);
 
-    txSetColor (TX_BLACK,2);
+    txSetColor (TX_BLACK);
+    txSetFillColor (RGB (70, 130, 180));
     txCircle (ROUND (x - 6 * sizeGirl), ROUND (y - 30 * sizeGirl), ROUND (eyeR * sizeGirl - crazy * sizeGirl) * face);
     txCircle (ROUND (x + 7 * sizeGirl), ROUND (y - 30 * sizeGirl), ROUND (eyeR * sizeGirl + crazy * sizeGirl) * face);
 
-    txSetColor (TX_RED,1);
+    txSetColor (TX_RED, 2);
     txLine (ROUND (x - 10 * sizeGirl) * face, ROUND (y - 9 * sizeGirl) * face,
             ROUND (x +  1 * sizeGirl) * face, ROUND (y - 9 * sizeGirl + smile * sizeGirl) * face);
     txLine (ROUND (x + 10 * sizeGirl) * face, ROUND (y - 9 * sizeGirl) * face,
@@ -176,19 +223,24 @@ void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int
 //!
 //! @param x          x - координата центра головы Кота
 //! @param y          y - координата центра головы Кота
+//! @param size       Размер Кота
 //! @param lengthTail Длина хвостика Кота (ведь хвосты бывают разные)
 //! @param heightTail Высота подъема хвостика Кота (0 - горизонтально)
 //! @param pawsL      Шаг задних лап Кота
 //! @param pawsR      Шаг передних лап Кота
+//! @param us1        Поднимает/опускает верхний ус Кота
+//! @param us2        Поднимает/опускает средний ус Кота
+//! @param us3        Поднимает/опускает нижний ус Кота
+//! @param catColor   Цвет Кота
 //!
 //! @par              Пример использования:
 //! @code
-//!                   DrawCat (500, 100, 1.5, 30, 10, 10, 20, TX_WHITE);
+//!                   DrawCat (500, 100, 1.5, 30, 10, 10, 20, 3, 1, -2, TX_WHITE);
 //! @endcode
 //}-----------------------------------------------------------------------------
 
 void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
-              int pawsL, int pawsR, COLORREF catColor)
+              int pawsL, int pawsR, int us1, int us2, int us3, COLORREF catColor)
     {
     txSetColor (TX_LIGHTGRAY);
     txSetFillColor (catColor);
@@ -210,6 +262,12 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
     txSetFillColor (TX_BLACK);
     txCircle (ROUND ((x +  9) * size), ROUND ((y - 5) * size), ROUND (2 * size));
     txCircle (ROUND ((x + 23) * size), ROUND ((y + 1) * size), ROUND (2 * size));
+    txLine (ROUND ((x + 20) * size), ROUND ((y +  1) * size),
+            ROUND ((x + 10) * size), ROUND ((y +  1 - us1) * size));
+    txLine (ROUND ((x + 20) * size), ROUND ((y +  1) * size),
+            ROUND ((x + 10) * size), ROUND ((y +  5 - us2) * size));
+    txLine (ROUND ((x + 20) * size), ROUND ((y +  1) * size),
+            ROUND ((x + 13) * size), ROUND ((y + 10 - us3) * size));
 
     txSetColor (TX_BLACK, 3);
     txLine (ROUND ((x - 153 - lengthTail) * size), ROUND ((y + 16 - heightTail) * size),
