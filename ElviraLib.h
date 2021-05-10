@@ -23,7 +23,7 @@
 #include <cmath>
 #include "TXLib.h"
 
-void DrawSun      (int x, int y, double size);
+void DrawSun      (int x, int y, int rSun, int luch);
 void DrawElka     (int x, int y, double size, int crown1, int crown2, int crown3,
                    int kachanie, int widthTrunk);
 void DrawHaus     (int x, int y, double sizeX, double sizeY,
@@ -31,7 +31,8 @@ void DrawHaus     (int x, int y, double sizeX, double sizeY,
                    COLORREF wallColor, COLORREF krishaColor, COLORREF windowColor);
 void DrawCat      (int x, int y, double size, int lengthTail, int heightTail,
                    int pawsL, int pawsR, int us1, int us2, int us3, COLORREF catColor);
-void DrawChick    (int x, int y, int moveWing, int lengthStep);
+void DrawChick    (int x, int y, double sizeX, double sizeY,
+                   int moveWing, int lengthStep, int moveBeak);
 void DrawAirplan  (int x, int y, double size);
 void DrawCloud    (int x, int y, double sizeCloud);
 void DrawAirport  (int x, int y, double sizeAirport);
@@ -42,17 +43,32 @@ void DrawHausCity (int x, int y, double sizeHaus, COLORREF HausColor);
 void DrawRoad     (int y);
 void DrawMonument (int x, int y, double sizeMonument);
 
-//=============================================================================
-
-void DrawSun (int x, int y, double size)
+//{=============================================================================
+//! Рисует Солнце
+//!
+//! Рисует Солнце с лучиками
+//!
+//! @param x    x - координата центра Солнца
+//! @param y    y - координата центра Солнца
+//! @param rSun Радиус Солнца
+//! @param luch Длина луча Солнца
+//!
+//! @par        Пример использования:
+//! @code
+//!         DrawSun (100, 100, 17, 25);
+//! @endcode
+//}-----------------------------------------------------------------------------
+void DrawSun (int x, int y, int rSun, int luch)
     {
-    txSetColor (TX_YELLOW);
+    txSetColor (TX_YELLOW, 3);
     txSetFillColor (TX_YELLOW);
-    txCircle (x, y, 50*size);
-    txLine (x,           y - 50*size, x,           y + 80*size);
-    txLine (x - 80*size, y,           x + 80*size, y);
-    txLine (x - 50*size, y - 40*size, x + 50*size, y + 60*size);
-    txLine (x - 50*size, y + 60*size, x + 50*size, y - 40*size);
+    txCircle (x, y, rSun);
+    txLine (x,               y - rSun - luch, x,               y + rSun + luch);
+    txLine (x - rSun - luch, y,               x + rSun + luch, y);
+    txLine (x - 0.75 * (rSun + luch), y - 0.75 * (rSun + luch),
+            x + 0.75 * (rSun + luch), y + 0.75 * (rSun + luch));
+    txLine (x - 0.75 * (rSun + luch), y + 0.75 * (rSun + luch),
+            x + 0.75 * (rSun + luch), y - 0.75 * (rSun + luch));
     }
 
 //{=============================================================================
@@ -279,25 +295,59 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
     txLine (ROUND ((x - 30 + pawsR/2) * size), ROUND ((y + 86) * size), ROUND ((x - 30) * size), ROUND ((y + 55) * size));
     }
 
-//=============================================================================
+//{=============================================================================
+//! Рисует Цыпленка
+//!
+//! Рисует милого Цыпу
+//!
+//! @param x          x - координата центра туловища Цыпленка
+//! @param y          y - координата центра туловища Цыпленка
+//! @param sizeX      Размер ширины Цыпленка
+//! @param sizeY      Размер высоты Цыпленка (Если отрицательно, то смотрит вправо)
+//! @param moveWing   Движение крыла Цыпленка
+//! @param lengthStep Длина шага Цыпленка
+//! @param moveBeak   Движение клюва Цыпленка (Может кричать!)
+//!
+//! @par              Пример использования:
+//! @code
+//!                   DrawChick (500, 500,  2, 2, 20, 20, 6);
+//! @endcode
+//}-----------------------------------------------------------------------------
 
-void DrawChick (int x, int y, int moveWing, int lengthStep)
+void DrawChick (int x, int y, double sizeX, double sizeY, int moveWing, int lengthStep, int moveBeak)
     {
     txSetColor (TX_YELLOW);
     txSetFillColor (TX_YELLOW);
-    txCircle (x, y, 25);
-    txCircle (x - 23, y - 21, 15);
-    txCircle (x + 19, y -  5, 10);
+    txCircle (x, y, 25 * sizeX);
+
     txSetColor (TX_BLACK);
-    txLine (x - 46, y - 15, x - 37,                y - 20);
-    txLine (x - 46, y - 15, x - 37,                y - 15);
-    txLine (x -  7, y -  7, x + 11,                y + moveWing);
-    txLine (x + 14, y -  7, x + 11,                y + moveWing);
-    txLine (x + 14, y -  7, x -  7,                y -  7);
-    txLine (x -  3, y + 26, x -  3 - lengthStep/2, y + 40);
-    txLine (x +  2, y + 26, x +  2 + lengthStep/2, y + 40);
     txSetFillColor (TX_BLACK);
-    txCircle (x - 31, y - 20, 2);
+    POINT Beak1[3] = {{ROUND(x - 37 * sizeX), ROUND(y -                23 * sizeY)},
+                      {ROUND(x - 46 * sizeX), ROUND(y - (18 + moveBeak/2) * sizeY)},
+                      {ROUND(x - 37 * sizeX), ROUND(y -                18 * sizeY)}};
+    txPolygon (Beak1, 3);
+    POINT Beak2[3] = {{ROUND(x - 37 * sizeX), ROUND(y -                15 * sizeY)},
+                      {ROUND(x - 46 * sizeX), ROUND(y - (18 - moveBeak/2) * sizeY)},
+                      {ROUND(x - 37 * sizeX), ROUND(y -                18 * sizeY)}};
+    txPolygon (Beak2, 3);
+
+    txSetColor (TX_YELLOW);
+    txSetFillColor (TX_YELLOW);
+    txCircle (ROUND (x - 23 * sizeX), ROUND (y - 21 * sizeY), ROUND (15 * sizeX));
+    txCircle (ROUND (x + 19 * sizeX), ROUND (y -  5 * sizeY), ROUND (10 * sizeX));
+
+    txSetColor (TX_BLACK);
+    txSetFillColor (TX_YELLOW);
+    POINT Wing[3] = {{ROUND(x -  7 * sizeX), ROUND(y -        7 * sizeY)},
+                     {ROUND(x + 11 * sizeX), ROUND(y - moveWing * sizeY)},
+                     {ROUND(x + 14 * sizeX), ROUND(y -        7 * sizeY)}};
+    txPolygon (Wing, 3);
+
+    txSetColor (TX_BLACK, 2);
+    txSetFillColor (TX_BLACK);
+    txCircle (x - 31 * sizeX, y - 20 * sizeY, 2 * sizeX);
+    txLine ((x -  3 * sizeX), (y + 26 * sizeY), (x -  3 - lengthStep/2 * sizeX), (y + 40 * sizeY));
+    txLine ((x +  2 * sizeX), (y + 26 * sizeY), (x +  2 + lengthStep/2 * sizeX), (y + 40 * sizeY));
     }
 
 //-----------------------------------------------------------------------------
