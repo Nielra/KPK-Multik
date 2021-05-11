@@ -12,7 +12,6 @@
 //!         - @ref DrawCloud()
 //!         - @ref DrawElka()
 //!         - @ref DrawHaus()
-//!         - @ref DrawHausCity()
 //!         - @ref DrawCat()
 //!         - @ref DrawChick()
 //!         - @ref DrawGirl()
@@ -33,19 +32,21 @@ void DrawCat      (int x, int y, double size, int lengthTail, int heightTail,
                    int pawsL, int pawsR, int us1, int us2, int us3, COLORREF catColor);
 void DrawChick    (int x, int y, double sizeX, double sizeY,
                    int moveWing, int lengthStep, int moveBeak);
-void DrawAirplan  (int x, int y, double size);
-void DrawCloud    (int x, int y, double sizeCloud);
-void DrawAirport  (int x, int y, double sizeAirport);
-void DrawBus      (int x, int y, double sizeBus, int RLBus, COLORREF BusColor);
+void DrawAirplan  (int x, int y, double sizeX, double sizeY, COLORREF airplanColor, COLORREF windowColor);
+void DrawCloud    (int x, int y, double sizeCloud, COLORREF cloudColor);
+void DrawBus      (int x, int y, double sizeX, double sizeY, double moveWheel,
+                   bool headlights, COLORREF busColor, COLORREF windowColor);
 void DrawGirl     (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int face,
                    int moveHandR, int moveHandL, int smile, COLORREF bodyColor);
 void DrawHausCity (int x, int y, double sizeHaus, COLORREF HausColor);
-void DrawRoad     (int y);
-void DrawMonument (int x, int y, double sizeMonument);
 
 //{=============================================================================
 //! Рисует Солнце
 //!
+//! <table border = 0>
+//! <tr><td> @image html images/Sun.jpg  </td>
+//!
+//! <td>
 //! Рисует Солнце с лучиками
 //!
 //! @param x    x - координата центра Солнца
@@ -53,11 +54,15 @@ void DrawMonument (int x, int y, double sizeMonument);
 //! @param rSun Радиус Солнца
 //! @param luch Длина луча Солнца
 //!
+//! </td></tr>
+//! </table>
+//!
 //! @par        Пример использования:
 //! @code
 //!         DrawSun (100, 100, 17, 25);
 //! @endcode
 //}-----------------------------------------------------------------------------
+
 void DrawSun (int x, int y, int rSun, int luch)
     {
     txSetColor (TX_YELLOW, 3);
@@ -72,18 +77,18 @@ void DrawSun (int x, int y, int rSun, int luch)
     }
 
 //{=============================================================================
-//! Рисует ёлочку
+//! Рисует  Ёлочку
 //!
-//! Рисует зеленую красивую ёлочку
+//! Рисует зеленую красивую Ёлочку
 //!
-//! @param x          x - координата верхушки ёлочки
-//! @param y          y - координата верхушки ёлочки
-//! @param size       Размер ёлочки
-//! @param crown1     Размер верхней кроны ёлочки
-//! @param crown2     Размер средней кроны ёлочки
-//! @param crown3     Размер нижней кроны ёлочки
+//! @param x          x - координата верхушки Ёлочки
+//! @param y          y - координата верхушки Ёлочки
+//! @param size       Размер Ёлочки
+//! @param crown1     Размер верхней кроны Ёлочки
+//! @param crown2     Размер средней кроны Ёлочки
+//! @param crown3     Размер нижней кроны Ёлочки
 //! @param kachanie   Ёлочка может покачиваться
-//! @param widthTrunk Ширина ствола ёлочки
+//! @param widthTrunk Ширина ствола Ёлочки
 //!
 //! @par              Пример использования:
 //! @code
@@ -136,7 +141,7 @@ void DrawElka (int x, int y, double size, int crown1, int crown2, int crown3, in
 //!
 //! @par                Пример использования:
 //! @code
-//!                     DrawHaus (100, 100, 1, 1, 20, 0, 50, 50, TX_YELLOW, TX_RED, TX_BLUE);
+//!         DrawHaus (100, 100, 1, 1, 20, 0, 50, 50, TX_YELLOW, TX_RED, TX_BLUE);
 //! @endcode
 //}-----------------------------------------------------------------------------
 
@@ -146,19 +151,21 @@ void DrawHaus (int x, int y, double sizeX, double sizeY,
     {
     txSetColor (TX_BLACK);
     txSetFillColor (krishaColor);
-    POINT Krisha[3] = {{ROUND(x - 80*sizeX),    ROUND(y + 100*sizeY)},
+    POINT Krisha[3] = {{ROUND(x - 80 * sizeX),  ROUND(y + 100 * sizeY)},
                        {ROUND(x + shiftKrisha), ROUND(y - heightKrisha)},
-                       {ROUND(x + 80*sizeX),    ROUND(y + 100*sizeY)}};
+                       {ROUND(x + 80 * sizeX),  ROUND(y + 100 * sizeY)}};
     txPolygon (Krisha, 3);
+
     txSetFillColor (wallColor);
-    txRectangle (ROUND(x - 80*sizeX), ROUND(y + 100*sizeY), ROUND(x + 80*sizeX), ROUND(y + 250*sizeY));
+    txRectangle (ROUND(x - 80 * sizeX), ROUND(y + 100 * sizeY),
+                 ROUND(x + 80 * sizeX), ROUND(y + 250 * sizeY));
     txSetFillColor (windowColor);
-    txRectangle (ROUND(x - 38*sizeX - widthWindow/2), ROUND(y + 139*sizeY - heightWindow/2),
-                 ROUND(x + 40*sizeX + widthWindow/2), ROUND(y + 208*sizeY + heightWindow/2));
-    txLine (ROUND(x - 38*sizeX - widthWindow/2), ROUND(y + 174*sizeY - heightWindow/2),
-            ROUND(x + 40*sizeX + widthWindow/2), ROUND(y + 174*sizeY - heightWindow/2));
-    txLine (ROUND(x + sizeX),                    ROUND(y + 174*sizeY - heightWindow/2),
-            ROUND(x + sizeX),                    ROUND(y + 208*sizeY + heightWindow/2));
+    txRectangle (ROUND(x - 38 * sizeX - widthWindow/2), ROUND(y + 139 * sizeY - heightWindow/2),
+                 ROUND(x + 40 * sizeX + widthWindow/2), ROUND(y + 208 * sizeY + heightWindow/2));
+    txLine (ROUND(x - 38 * sizeX - widthWindow/2), ROUND(y + 174 * sizeY - heightWindow/2),
+            ROUND(x + 40 * sizeX + widthWindow/2), ROUND(y + 174 * sizeY - heightWindow/2));
+    txLine (ROUND(x + sizeX),                      ROUND(y + 174 * sizeY - heightWindow/2),
+            ROUND(x + sizeX),                      ROUND(y + 208 * sizeY + heightWindow/2));
     }
 
 //{=============================================================================
@@ -251,7 +258,7 @@ void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int
 //!
 //! @par              Пример использования:
 //! @code
-//!                   DrawCat (500, 100, 1.5, 30, 10, 10, 20, 3, 1, -2, TX_WHITE);
+//!         DrawCat (500, 100, 1.5, 30, 10, 10, 20, 3, 1, -2, TX_WHITE);
 //! @endcode
 //}-----------------------------------------------------------------------------
 
@@ -310,7 +317,7 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
 //!
 //! @par              Пример использования:
 //! @code
-//!                   DrawChick (500, 500,  2, 2, 20, 20, 6);
+//!         DrawChick (500, 500,  2, 2, 20, 20, 6);
 //! @endcode
 //}-----------------------------------------------------------------------------
 
@@ -350,201 +357,127 @@ void DrawChick (int x, int y, double sizeX, double sizeY, int moveWing, int leng
     txLine ((x +  2 * sizeX), (y + 26 * sizeY), (x +  2 + lengthStep/2 * sizeX), (y + 40 * sizeY));
     }
 
-//-----------------------------------------------------------------------------
-
-void DrawAirplan (int x, int y, double size)
+//{=============================================================================
+//! Рисует Самолет
+//!
+//! Рисует Самолет
+//!
+//! @param x            x - координата хвоста Самолета
+//! @param y            y - координата хвоста Самолета
+//! @param sizeX        Размер длины Самолета
+//! @param sizeY        Размер высоты Самолета
+//! @param airplanColor Цвет Самолета
+//! @param windowColor  Цвет иллюминатора Самолета
+//!
+//! @par        Пример использования:
+//! @code
+//!         DrawAirplan (500, 200, 1, 1, TX_BLUE, TX_LIGHTGRAY);
+//! @endcode
+//}-----------------------------------------------------------------------------
+void DrawAirplan (int x, int y, double sizeX, double sizeY, COLORREF airplanColor, COLORREF windowColor)
     {
-    txSetColor (TX_BLUE);
-    txSetFillColor (TX_LIGHTBLUE);
-    POINT Airplan[14] = {{ROUND ( x        * size), ROUND ( y        * size)}, {ROUND ((x +  30) * size), ROUND ( y        * size)},
-                         {ROUND ((x +  50) * size), ROUND ((y +  30) * size)}, {ROUND ((x +  75) * size), ROUND ((y +  30) * size)},
-                         {ROUND ((x +  60) * size), ROUND ((y -  10) * size)}, {ROUND ((x +  90) * size), ROUND ((y -  10) * size)},
-                         {ROUND ((x + 115) * size), ROUND ((y +  30) * size)}, {ROUND ((x + 160) * size), ROUND ((y +  30) * size)},
-                         {ROUND ((x + 210) * size), ROUND ((y +  70) * size)}, {ROUND ((x + 115) * size), ROUND ((y +  70) * size)},
-                         {ROUND ((x +  90) * size), ROUND ((y + 110) * size)}, {ROUND ((x +  60) * size), ROUND ((y + 110) * size)},
-                         {ROUND ((x +  75) * size), ROUND ((y +  70) * size)}, {ROUND ((x +  20) * size), ROUND ((y +  70) * size)}};
-          txPolygon (Airplan, 14);
-    txSetColor (TX_GRAY);
-    txSetFillColor (TX_GRAY);
+    txSetColor (airplanColor);
+    txSetFillColor (airplanColor);
+    POINT Airplan[14] = {{ROUND ( x        * sizeX), ROUND ( y        * sizeY)}, {ROUND ((x +  30) * sizeX), ROUND ( y        * sizeY)},
+                         {ROUND ((x +  50) * sizeX), ROUND ((y +  30) * sizeY)}, {ROUND ((x +  75) * sizeX), ROUND ((y +  30) * sizeY)},
+                         {ROUND ((x +  60) * sizeX), ROUND ((y -  10) * sizeY)}, {ROUND ((x +  90) * sizeX), ROUND ((y -  10) * sizeY)},
+                         {ROUND ((x + 115) * sizeX), ROUND ((y +  30) * sizeY)}, {ROUND ((x + 160) * sizeX), ROUND ((y +  30) * sizeY)},
+                         {ROUND ((x + 210) * sizeX), ROUND ((y +  70) * sizeY)}, {ROUND ((x + 115) * sizeX), ROUND ((y +  70) * sizeY)},
+                         {ROUND ((x +  90) * sizeX), ROUND ((y + 110) * sizeY)}, {ROUND ((x +  60) * sizeX), ROUND ((y + 110) * sizeY)},
+                         {ROUND ((x +  75) * sizeX), ROUND ((y +  70) * sizeY)}, {ROUND ((x +  20) * sizeX), ROUND ((y +  70) * sizeY)}};
+    txPolygon (Airplan, 14);
+    txSetColor (windowColor);
+    txSetFillColor (windowColor);
     int kWindow = 0;
     while (kWindow <= 4)
         {
-        txCircle (ROUND ((x + 75 + 20 * kWindow) * size), ROUND ((y + 45) * size), ROUND (5 * size));
+        txCircle (ROUND ((x + 75 + 20 * kWindow) * sizeX), ROUND ((y + 45) * sizeY), ROUND (5 * sizeX));
         kWindow += 1;
         }
     }
 
-//-----------------------------------------------------------------------------
+//{=============================================================================
+//! Рисует Облако
+//!
+//! Рисует Облачко, которое может плыть по небу
+//!
+//! @param x          x - координата крайней правой точки Облака
+//! @param y          y - координата самой высокой точки Облака
+//! @param sizeCloud  Размер Облака
+//! @param cloudColor Цвет Облака (Облако может легко стать Тучкой)
+//!
+//! @par        Пример использования:
+//! @code
+//!             DrawCloud (100, 10, 2, TX_GRAY);
+//! @endcode
+//}-----------------------------------------------------------------------------
 
-void DrawCloud (int x, int y, double sizeCloud)
+void DrawCloud (int x, int y, double sizeCloud, COLORREF cloudColor)
     {
-    txSetColor (TX_WHITE);
-    txSetFillColor (TX_WHITE);
+    txSetColor (cloudColor);
+    txSetFillColor (cloudColor);
 
     txEllipse (ROUND( x       * sizeCloud), ROUND((y + 20) * sizeCloud), ROUND((x + 40) * sizeCloud), ROUND((y + 40) * sizeCloud));
     txEllipse (ROUND((x + 20) * sizeCloud), ROUND( y       * sizeCloud), ROUND((x + 80) * sizeCloud), ROUND((y + 40) * sizeCloud));
     txEllipse (ROUND((x + 20) * sizeCloud), ROUND((y + 30) * sizeCloud), ROUND((x + 60) * sizeCloud), ROUND((y + 50) * sizeCloud));
     }
 
-//-----------------------------------------------------------------------------
+//{=============================================================================
+//! Рисует Автобус
+//!
+//! Рисует симпатичный Автобус
+//!
+//! @param x           x - координата центра корпуса Автобуса
+//! @param y           y - координата крыши Автобуса
+//! @param sizeX       Размер длины Автобуса
+//! @param sizeY       Размер высоты Автобуса
+//! @param moveWheel   Движение колеса Автобуса (вверх/вниз)
+//! @param headlights  Свет фар (без этого никак нельзя ездить)
+//! @param busColor    Цвет Автобуса
+//! @param windowColor Цвет окон Абтобуса
+//!
+//! @par              Пример использования:
+//! @code
+//!         DrawBus (200, 200, 10, 10, 0, true, RGB (222, 184, 135), RGB (240, 230, 140));
+//! @endcode
+//}-----------------------------------------------------------------------------
 
-void DrawAirport (int x, int y, double sizeAirport)
+void DrawBus (int x, int y, double sizeX, double sizeY, double moveWheel,
+              bool headlights, COLORREF busColor, COLORREF windowColor)
     {
-    txSetColor (RGB (105, 105, 105));
-    txSetFillColor (RGB (105, 105, 105));
-    txRectangle (x +  20 * sizeAirport, y +  3 * sizeAirport,
-                 x + 100 * sizeAirport, y + 10 * sizeAirport);
-    txSetColor (TX_WHITE, 3);
-    txLine ( 750, y + 6 * sizeAirport,  850, y + 6 * sizeAirport);
-    txLine ( 900, y + 6 * sizeAirport, 1000, y + 6 * sizeAirport);
-    txLine (1050, y + 6 * sizeAirport, 1150, y + 6 * sizeAirport);
-    txLine (1200, y + 6 * sizeAirport, 1300, y + 6 * sizeAirport);
-    txSetColor (TX_GRAY);
-    txSetFillColor (TX_GRAY);
-    txRectangle (x - 24 * sizeAirport, y - 12 * sizeAirport,
-                 x + 24 * sizeAirport, y + 12 * sizeAirport);
-    txSetColor (TX_BLUE);
-    txSetFillColor (TX_BLUE);
-    txRectangle (x - 20 * sizeAirport, y - 10 * sizeAirport,
-                 x + 20 * sizeAirport, y + 10 * sizeAirport);
-    txSetColor (TX_GRAY, 3);
-    txLine (x - 20 * sizeAirport, y - 6 * sizeAirport,
-            x + 20 * sizeAirport, y - 6 * sizeAirport);
-    txLine (x - 20 * sizeAirport, y,
-            x + 20 * sizeAirport, y                  );
-    txLine (x - 20 * sizeAirport, y + 6 * sizeAirport,
-            x + 20 * sizeAirport, y + 6 * sizeAirport);
-    txLine (x - 10 * sizeAirport, y - 10 * sizeAirport,
-            x - 10 * sizeAirport, y + 10 * sizeAirport);
-    txLine (x,                    y - 10 * sizeAirport,
-            x,                    y + 10 * sizeAirport);
-    txLine (x + 10 * sizeAirport, y - 10 * sizeAirport,
-            x + 10 * sizeAirport, y + 10 * sizeAirport);
-    txSetColor (TX_WHITE, 3);
-    txSetFillColor (TX_NULL);
-    txCircle (x,                   y - 14 * sizeAirport, 2 * sizeAirport);
-    txLine (x - 2 * sizeAirport, y - 14 * sizeAirport, x + 2 * sizeAirport, y - 14 * sizeAirport);
-    txSetColor (TX_BLUE, 3);
-    txCircle (x - 5 * sizeAirport, y - 14 * sizeAirport, 2 * sizeAirport);
-    txLine (x - 5 * sizeAirport, y - 16 * sizeAirport, x - 5 * sizeAirport, y - 12 * sizeAirport);
-    txSetColor (RGB (0, 100, 0), 3);
-    txCircle (x + 5 * sizeAirport, y - 14 * sizeAirport, 2 * sizeAirport);
-    txLine (x + 5 * sizeAirport, y - 16 * sizeAirport, x + 5 * sizeAirport, y - 12 * sizeAirport);
-    txSetColor (TX_WHITE);
-    txSetFillColor (TX_WHITE);
-    txSelectFont ("Arial", 20, 0, FW_BOLD);
-    txTextOut (x - 22 * sizeAirport, y - 14 * sizeAirport, "УФА аэропорт");
-    txTextOut (x + 12 * sizeAirport, y - 14 * sizeAirport, "airport UFA" );
-    txSetColor (RGB (105, 105, 105));
-    txSetFillColor (RGB (105, 105, 105));
-    txRectangle (0, y + 12 * sizeAirport, 1300, y + 24 * sizeAirport);
-    txSetColor (TX_WHITE, 4);
-    txLine (   0, y + 18 * sizeAirport,  100, y + 18 * sizeAirport);
-    txLine ( 150, y + 18 * sizeAirport,  250, y + 18 * sizeAirport);
-    txLine ( 300, y + 18 * sizeAirport,  400, y + 18 * sizeAirport);
-    txLine ( 450, y + 18 * sizeAirport,  550, y + 18 * sizeAirport);
-    txLine ( 600, y + 18 * sizeAirport,  700, y + 18 * sizeAirport);
-    txLine ( 750, y + 18 * sizeAirport,  850, y + 18 * sizeAirport);
-    txLine ( 900, y + 18 * sizeAirport, 1000, y + 18 * sizeAirport);
-    txLine (1050, y + 18 * sizeAirport, 1150, y + 18 * sizeAirport);
-    txLine (1200, y + 18 * sizeAirport, 1300, y + 18 * sizeAirport);
-    }
+    txSetColor (busColor);
+    txSetFillColor (busColor);
+    txRectangle (x - 10 * sizeX, y, x + 10 * sizeX, y + 10 * sizeY);
 
-//-----------------------------------------------------------------------------
+    if (headlights == true)
+        {
+        txSetColor (RGB (255, 160, 122));
+        txSetFillColor (RGB (255, 160, 122));
+        POINT Fara[4] = {{ROUND(x +  9 * sizeX), ROUND(y +  6 * sizeY)},
+                         {ROUND(x + 30 * sizeX), ROUND(y +  5 * sizeY)},
+                         {ROUND(x + 30 * sizeX), ROUND(y + 12 * sizeY)},
+                         {ROUND(x +  9 * sizeX), ROUND(y +  8 * sizeY)}};
+        txPolygon (Fara, 4);
+        }
 
-void DrawBus (int x, int y, double sizeBus, int RLBus, COLORREF BusColor)
-    {
-    txSetColor (TX_ORANGE);
-    txSetFillColor (BusColor);
-    txRectangle (x - 10 * sizeBus, y,               x + 10 * sizeBus, y + 10 * sizeBus);
     txSetFillColor (TX_ORANGE);
-    txCircle (x + 9 * sizeBus * RLBus, y + 7 * sizeBus, 1 * sizeBus);
-    txSetColor (TX_LIGHTGRAY);
-    txSetFillColor (TX_LIGHTGRAY);
-    txRectangle (x -  9 * sizeBus * RLBus, y + 2 * sizeBus, x + 10 * sizeBus * RLBus, y +  6 * sizeBus);
+    txCircle (x + 9 * sizeX, y + 7 * sizeY, 1 * sizeX);
+
+    txSetColor (windowColor);
+    txSetFillColor (windowColor);
+    txRectangle (x -  9 * sizeX, y + 2 * sizeY, x + 10 * sizeX, y +  6 * sizeY);
     txSetColor (RGB (128, 128, 128), 3);
-    txLine (x - 9 * sizeBus * RLBus, y +  2 * sizeBus, x -  9 * sizeBus * RLBus, y +  6 * sizeBus);
-    txLine (x - 6 * sizeBus * RLBus, y +  2 * sizeBus, x -  6 * sizeBus * RLBus, y +  6 * sizeBus);
-    txLine (x - 2 * sizeBus * RLBus, y +  2 * sizeBus, x -  2 * sizeBus * RLBus, y + 10 * sizeBus);
-    txLine (x + 2 * sizeBus * RLBus, y +  2 * sizeBus, x +  2 * sizeBus * RLBus, y + 10 * sizeBus);
-    txLine (x + 6 * sizeBus * RLBus, y +  2 * sizeBus, x +  6 * sizeBus * RLBus, y +  6 * sizeBus);
-    txLine (x - 9 * sizeBus * RLBus, y +  2 * sizeBus, x + 10 * sizeBus * RLBus, y +  2 * sizeBus);
-    txLine (x - 9 * sizeBus * RLBus, y +  6 * sizeBus, x + 10 * sizeBus * RLBus, y +  6 * sizeBus);
-    txLine (x - 2 * sizeBus * RLBus, y + 10 * sizeBus, x +  2 * sizeBus * RLBus, y + 10 * sizeBus);
+    txLine (x - 9 * sizeX, y +  2 * sizeY, x -  9 * sizeX, y +  6 * sizeY);
+    txLine (x - 6 * sizeX, y +  2 * sizeY, x -  6 * sizeX, y +  6 * sizeY);
+    txLine (x - 2 * sizeX, y +  2 * sizeY, x -  2 * sizeX, y + 10 * sizeY);
+    txLine (x + 2 * sizeX, y +  2 * sizeY, x +  2 * sizeX, y + 10 * sizeY);
+    txLine (x + 6 * sizeX, y +  2 * sizeY, x +  6 * sizeX, y +  6 * sizeY);
+    txLine (x - 9 * sizeX, y +  2 * sizeY, x + 10 * sizeX, y +  2 * sizeY);
+    txLine (x - 9 * sizeX, y +  6 * sizeY, x + 10 * sizeX, y +  6 * sizeY);
+    txLine (x - 2 * sizeX, y + 10 * sizeY, x +  2 * sizeX, y + 10 * sizeY);
+
     txSetColor (TX_BLACK);
     txSetFillColor (TX_BLACK);
-    txCircle (x - 6 * sizeBus * RLBus, y + 10 * sizeBus, 2 * sizeBus);
-    txCircle (x + 6 * sizeBus * RLBus, y + 10 * sizeBus, 2 * sizeBus);
-    }
-
-//-----------------------------------------------------------------------------
-
-void DrawRoad (int y)
-    {
-    txSetColor (RGB (105, 105, 105));
-    txSetFillColor (RGB (105, 105, 105));
-    txRectangle (0, y - 100, 1300, y + 100);
-    txSetColor (TX_WHITE, 4);
-    txLine (   0, y,  100, y);
-    txLine ( 150, y,  250, y);
-    txLine ( 300, y,  400, y);
-    txLine ( 450, y,  550, y);
-    txLine ( 600, y,  700, y);
-    txLine ( 750, y,  850, y);
-    txLine ( 900, y, 1000, y);
-    txLine (1050, y, 1150, y);
-    txLine (1200, y, 1300, y);
-    }
-
-//-----------------------------------------------------------------------------
-
-void DrawMonument (int x, int y, double sizeMonument)
-    {
-    txSetColor (TX_RED);
-    txSetFillColor (TX_RED);
-    POINT Monument[5] = {{ROUND ((x + 1) * sizeMonument), ROUND ((y +  1) * sizeMonument)}, {ROUND ((x + 3) * sizeMonument), ROUND ((y +  2) * sizeMonument)},
-                         {ROUND ((x + 5) * sizeMonument), ROUND ((y + 24) * sizeMonument)}, {ROUND ((x - 3) * sizeMonument), ROUND ((y + 24) * sizeMonument)},
-                         {ROUND ((x - 1) * sizeMonument), ROUND ((y +  2) * sizeMonument)}};
-          txPolygon (Monument, 5);
-    txSetColor (TX_GRAY);
-    txSetFillColor (TX_GRAY);
-    POINT OsnovanieCentr[4] = {{ROUND ((x -  5) * sizeMonument), ROUND ((y + 24) * sizeMonument)}, {ROUND ((x +  7) * sizeMonument), ROUND ((y + 24) * sizeMonument)},
-                               {ROUND ((x +  9) * sizeMonument), ROUND ((y + 32) * sizeMonument)}, {ROUND ((x -  7) * sizeMonument), ROUND ((y + 32) * sizeMonument)}};
-          txPolygon (OsnovanieCentr, 4);
-    POINT OsnovanieLeft[4]  = {{ROUND ((x -  7) * sizeMonument), ROUND ((y + 26) * sizeMonument)}, {ROUND ((x -  7) * sizeMonument), ROUND ((y + 32) * sizeMonument)},
-                               {ROUND ((x - 11) * sizeMonument), ROUND ((y + 32) * sizeMonument)}, {ROUND ((x - 11) * sizeMonument), ROUND ((y + 26) * sizeMonument)}};
-          txPolygon (OsnovanieLeft, 4);
-    POINT OsnovanieRight[4] = {{ROUND ((x +  9) * sizeMonument), ROUND ((y + 26) * sizeMonument)}, {ROUND ((x +  9) * sizeMonument), ROUND ((y + 32) * sizeMonument)},
-                               {ROUND ((x + 13) * sizeMonument), ROUND ((y + 32) * sizeMonument)}, {ROUND ((x + 13) * sizeMonument), ROUND ((y + 26) * sizeMonument)}};
-          txPolygon (OsnovanieRight, 4);
-    txSetColor (TX_WHITE);
-    txSetFillColor (TX_WHITE);
-    txSelectFont ("Arial", 20, 0, FW_BOLD);
-    txTextOut ((x - 10) * sizeMonument, (y + 32) * sizeMonument, "Monument of friendship");
-    }
-
-//-----------------------------------------------------------------------------
-
-void DrawHausCity (int x, int y, double sizeHaus, COLORREF HausColor)
-    {
-    txSetColor (HausColor);
-    txSetFillColor (HausColor);
-    txRectangle ((x + 1) * sizeHaus, (y +  1) * sizeHaus, (x + 15) * sizeHaus, (y + 19) * sizeHaus);
-    txSetColor (TX_GRAY);
-    txSetFillColor (TX_GRAY);
-    int iWin = 1;
-    while (iWin <= 7)
-        {
-        int jWin = 1;
-        while (jWin <= 5)
-            {
-            txRectangle ((x + 1 + 2*jWin) * sizeHaus, (y + 1 + 2*iWin) * sizeHaus,
-                         (x + 3 + 2*jWin) * sizeHaus, (y + 3 + 2*iWin) * sizeHaus);
-            jWin += 2;
-            }
-        iWin += 2;
-        }
-    txSetColor (TX_BROWN);
-    txSetFillColor (TX_BROWN);
-    txRectangle ((x + 7) * sizeHaus, (y + 15) * sizeHaus, (x +  9) * sizeHaus, (y + 19) * sizeHaus);
+    txCircle (x - 6 * sizeX, y + 10 * sizeY - moveWheel, 2 * sizeX);
+    txCircle (x + 6 * sizeX, y + 10 * sizeY + moveWheel, 2 * sizeX);
     }
