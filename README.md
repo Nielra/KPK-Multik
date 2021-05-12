@@ -2,12 +2,12 @@
 ### Мультфильм "Long-awaited meeting"
 Мультфильмы близки каждому человеку с детства. Они учат детей простым и понятным языком анимации серьёзным вещам. Что если самому создать мультик и при этом же научиться программированию?
 Вашему вниманию проект мультфильма «Long-awaited meeting» (Долгожданная встреча).
-![](https://github.com/Nielra/KPK-Multik/blob/main/Название.gif?raw=true)
+![](https://github.com/Nielra/KPK-Multik/blob/main/Image/Название.gif?raw=true)
 Данный проект состоит из трех частей: 
 
- * сцена прилета ![](https://github.com/Nielra/KPK-Multik/blob/main/Arrival.gif?raw=true)
- * город ![](https://github.com/Nielra/KPK-Multik/blob/main/City.gif?raw=true)
- * встреча ![](https://github.com/Nielra/KPK-Multik/blob/main/Meet.gif?raw=true)
+ * сцена прилета ![](https://github.com/Nielra/KPK-Multik/blob/main/Image/Arrival.gif?raw=true)
+ * город ![](https://github.com/Nielra/KPK-Multik/blob/main/Image/City.gif?raw=true)
+ * встреча ![](https://github.com/Nielra/KPK-Multik/blob/main/Image/Meet.gif?raw=true)
 
 Основные объекты проекта - девочки, самолет, автобус; фоновые - здания, мост, памятник, дорога и другие.
 В работе используется библиотека TXLib, которая достаточно легко воспринимается на начальном этапе освоения прорграммирования. 
