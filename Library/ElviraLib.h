@@ -17,6 +17,8 @@
 //!         - @ref DrawGirl()
 //!         - @ref DrawAirplan()
 //!         - @ref DrawBus()
+//!
+//! @image html Images/Example.jpg
 //}=============================================================================
 
 #include <cmath>
@@ -38,23 +40,29 @@ void DrawBus      (int x, int y, double sizeX, double sizeY, double moveWheel,
                    bool headlights, COLORREF busColor, COLORREF windowColor);
 void DrawGirl     (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int face,
                    int moveHandR, int moveHandL, int smile, COLORREF bodyColor);
-void DrawHausCity (int x, int y, double sizeHaus, COLORREF HausColor);
 
 //{=============================================================================
 //! Рисует Солнце
 //!
+//! Рисует Солнце с лучиками
+//!
 //! <table border = 0>
-//! <tr><td> @image html images/Sun.jpg  </td>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Sun.jpg
+//!
+//! </td>
 //!
 //! <td>
-//! Рисует Солнце с лучиками
 //!
 //! @param x    x - координата центра Солнца
 //! @param y    y - координата центра Солнца
 //! @param rSun Радиус Солнца
 //! @param luch Длина луча Солнца
 //!
-//! </td></tr>
+//! </td>
+//! </tr>
 //! </table>
 //!
 //! @par        Пример использования:
@@ -81,6 +89,16 @@ void DrawSun (int x, int y, int rSun, int luch)
 //!
 //! Рисует зеленую красивую Ёлочку
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Elka.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x          x - координата верхушки Ёлочки
 //! @param y          y - координата верхушки Ёлочки
 //! @param size       Размер Ёлочки
@@ -89,6 +107,10 @@ void DrawSun (int x, int y, int rSun, int luch)
 //! @param crown3     Размер нижней кроны Ёлочки
 //! @param kachanie   Ёлочка может покачиваться
 //! @param widthTrunk Ширина ствола Ёлочки
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par              Пример использования:
 //! @code
@@ -127,6 +149,16 @@ void DrawElka (int x, int y, double size, int crown1, int crown2, int crown3, in
 //!
 //! Рисует милый деревенский Домик с одним окном
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Haus.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x            x - координата конька Домика (самая верхушка)
 //! @param y            y - координата конька Домика (самая верхушка)
 //! @param sizeX        Размер ширины Домика
@@ -138,6 +170,10 @@ void DrawElka (int x, int y, double size, int crown1, int crown2, int crown3, in
 //! @param wallColor    Цвет стены Домика
 //! @param krishaColor  Цвет крыши Домика
 //! @param windowColor  Цвет окна Домика
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par                Пример использования:
 //! @code
@@ -173,6 +209,16 @@ void DrawHaus (int x, int y, double sizeX, double sizeY,
 //!
 //! Рисует Девочку с голубыми глазами и красным бантиком
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Girl.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x         x - координата шеи Девочки
 //! @param y         y - координата шеи Девочки
 //! @param sizeGirl  Размер Девочки. Девочки могут быть маленькими и большими
@@ -184,6 +230,10 @@ void DrawHaus (int x, int y, double sizeX, double sizeY,
 //! @param moveHandL Движение левой руки Девочки
 //! @param smile     Улыбка Девочки
 //! @param bodyColor Цвет платья Девочки
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par             Пример использования:
 //! @code
@@ -244,6 +294,16 @@ void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int
 //!
 //! Рисует милого Котика
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Cat.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x          x - координата центра головы Кота
 //! @param y          y - координата центра головы Кота
 //! @param size       Размер Кота
@@ -255,6 +315,10 @@ void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int
 //! @param us2        Поднимает/опускает средний ус Кота
 //! @param us3        Поднимает/опускает нижний ус Кота
 //! @param catColor   Цвет Кота
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par              Пример использования:
 //! @code
@@ -307,6 +371,16 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
 //!
 //! Рисует милого Цыпу
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Chick.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x          x - координата центра туловища Цыпленка
 //! @param y          y - координата центра туловища Цыпленка
 //! @param sizeX      Размер ширины Цыпленка
@@ -314,6 +388,10 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
 //! @param moveWing   Движение крыла Цыпленка
 //! @param lengthStep Длина шага Цыпленка
 //! @param moveBeak   Движение клюва Цыпленка (Может кричать!)
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par              Пример использования:
 //! @code
@@ -362,12 +440,26 @@ void DrawChick (int x, int y, double sizeX, double sizeY, int moveWing, int leng
 //!
 //! Рисует Самолет
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Airplan.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x            x - координата хвоста Самолета
 //! @param y            y - координата хвоста Самолета
 //! @param sizeX        Размер длины Самолета
 //! @param sizeY        Размер высоты Самолета
 //! @param airplanColor Цвет Самолета
 //! @param windowColor  Цвет иллюминатора Самолета
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par        Пример использования:
 //! @code
@@ -401,10 +493,24 @@ void DrawAirplan (int x, int y, double sizeX, double sizeY, COLORREF airplanColo
 //!
 //! Рисует Облачко, которое может плыть по небу
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Cloud.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x          x - координата крайней правой точки Облака
 //! @param y          y - координата самой высокой точки Облака
 //! @param sizeCloud  Размер Облака
 //! @param cloudColor Цвет Облака (Облако может легко стать Тучкой)
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par        Пример использования:
 //! @code
@@ -427,6 +533,16 @@ void DrawCloud (int x, int y, double sizeCloud, COLORREF cloudColor)
 //!
 //! Рисует симпатичный Автобус
 //!
+//! <table border = 0>
+//! <tr valign=middle>
+//! <td>
+//!
+//! @image html Images/Bus.jpg
+//!
+//! </td>
+//!
+//! <td>
+//!
 //! @param x           x - координата центра корпуса Автобуса
 //! @param y           y - координата крыши Автобуса
 //! @param sizeX       Размер длины Автобуса
@@ -435,6 +551,10 @@ void DrawCloud (int x, int y, double sizeCloud, COLORREF cloudColor)
 //! @param headlights  Свет фар (без этого никак нельзя ездить)
 //! @param busColor    Цвет Автобуса
 //! @param windowColor Цвет окон Абтобуса
+//!
+//! </td>
+//! </tr>
+//! </table>
 //!
 //! @par              Пример использования:
 //! @code
